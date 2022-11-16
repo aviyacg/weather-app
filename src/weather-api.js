@@ -25,7 +25,7 @@ export async function fetchForecastData(location) {
  */
 function filterTimestamp(timeStamp) {
   return {
-    time: timeStamp.dt,
+    date: timeStamp.dt,
     temperature: timeStamp.main.temp,
     humidity: timeStamp.main.humidity,
     weather: timeStamp.weather[0].main,
@@ -33,7 +33,25 @@ function filterTimestamp(timeStamp) {
   };
 }
 
+/**
+ * Converts the original timestamp OWM forecast units
+ * @param {Object} timeStamp filteredTimestamp
+ */
+function convertUnitsTimestamp(timeStamp) {
+  const convertedTimestamp = timeStamp;
+  // convert time from unix to Date object
+  convertedTimestamp.date = new Date(timeStamp.date * 1000);
+  // convert temperature from kelvin to celsius
+  convertedTimestamp.temperature -= 273.15;
+
+  return convertedTimestamp;
+}
+
+function processTimestamp(timeStamp) {
+  return convertUnitsTimestamp(filterTimestamp(timeStamp));
+}
+
 export function processForecastData(json) {
-  const timeStamps = json.list.map((timeStamp) => filterTimestamp(timeStamp));
+  const timeStamps = json.list.map((timeStamp) => processTimestamp(timeStamp));
   console.log(timeStamps);
 }
