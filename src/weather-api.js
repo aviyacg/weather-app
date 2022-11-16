@@ -21,7 +21,7 @@ export async function fetchForecastData(location) {
 /**
  * Make a timestamp object with the attributes actually being used by the app
  * @param {Object} timeStamp a timestamp object from OpenWeatherMap
- * @returns an object the useful attributes
+ * @returns an object contianing the useful attributes
  */
 function filterTimestamp(timeStamp) {
   return {
@@ -36,17 +36,23 @@ function filterTimestamp(timeStamp) {
 /**
  * Converts the original timestamp OWM forecast units
  * @param {Object} timeStamp filteredTimestamp
+ * @returns an object with the right unit type
  */
 function convertUnitsTimestamp(timeStamp) {
   const convertedTimestamp = timeStamp;
   // convert time from unix to Date object
   convertedTimestamp.date = new Date(timeStamp.date * 1000);
   // convert temperature from kelvin to celsius
-  convertedTimestamp.temperature -= 273.15;
+  convertedTimestamp.temperature = parseFloat((timeStamp.temperature - 273.15).toFixed(2));
 
   return convertedTimestamp;
 }
 
+/**
+ * Call filter and convertUnits on the timeStamp
+ * @param {Object} timeStamp a timestamp object from OpenWeatherMap
+ * @returns a formatted timestamp
+ */
 function processTimestamp(timeStamp) {
   return convertUnitsTimestamp(filterTimestamp(timeStamp));
 }
