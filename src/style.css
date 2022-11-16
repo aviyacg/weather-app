@@ -1,0 +1,90 @@
+:root{
+  --caryola-blue: #1D71F2;
+  --button-blue: #1C9CF6;
+  --spiro-disco-ball: #1D71F2;
+  --bubbles: #E3F4FE;
+  --cornsilk: #FFFAE0;
+  --tangerine-yellow: #FFCD00;
+
+
+  --shade: rgba(255,255,255,.2)
+}
+
+body{
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--button-blue);
+  box-shadow: inset 0px 0px 20px 0px var(--bubbles);
+
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.content{
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.content > div {
+  background-color: var(--shade);
+  border-radius: 4px;
+
+  padding: 8px;
+}
+
+.current-weather{
+  min-height: 100px;
+  min-width: 300px;
+}
+
+input{
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--bubbles);
+  color: var(--bubbles);
+}
+
+input:focus{
+  outline: none;
+  caret-color: var(--bubbles);
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--bubbles);
+  opacity: 1; /* Firefox */
+}
+
+button{
+  background-color: transparent;
+  border: none;
+  color: var(--bubbles);
+  padding: 4px 8px;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: var(--shade);
+}
+
+.switch-forecast,
+.forecast{
+  width: clamp(300px, 90vw, 800px);
+
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card{
+  max-width: 100px;
+  flex: 80px 1 0;
+  height: 150px;
+  background-color: var(--shade)
+}
