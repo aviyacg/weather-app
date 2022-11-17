@@ -49,6 +49,8 @@ function convertUnitsTimestamp(timeStamp) {
   convertedTimestamp.temperature = Math.round(timeStamp.temperature - 273.15);
   // convert wind from meter/s to km/h
   convertedTimestamp.wind = Math.round(timeStamp.wind * 3.6);
+  // convert precip from 0 to 1 float to 0-100 %
+  convertedTimestamp.preciption = timeStamp.preciption * 100;
 
   return convertedTimestamp;
 }
@@ -62,7 +64,12 @@ function processTimestamp(timeStamp) {
   return convertUnitsTimestamp(filterTimestamp(timeStamp));
 }
 
+/**
+ *  Process JSON format 5 days forecast
+ * @param {JSON} json 5 days forecast in JSON format
+ * @returns City name and list of timeStamps
+ */
 export function processForecastData(json) {
   const timeStamps = json.list.map((timeStamp) => processTimestamp(timeStamp));
-  console.log(timeStamps);
+  return { city: json.city.name, timeStamps };
 }
