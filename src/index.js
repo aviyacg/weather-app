@@ -70,21 +70,24 @@ function groupTimeStampsByDays(timeStamps) {
 
 async function search(location) {
   const json = await api.fetchForecastData(location);
-  const forecast = api.processForecastData(json);
+  const forecast = await api.processForecastData(json);
   dailyForecast = groupTimeStampsByDays(forecast.timeStamps);
+  renderDailyForecast(dailyForecast.day1);
 }
 
 // on load the page show the forecast for jerusalem
+search('Jerusalem');
 
-api.fetchForecastData('Jerusalem')
-  .then((json) => api.processForecastData(json))
-  .then((obj) => {
-    console.log(obj);
-    dailyForecast = groupTimeStampsByDays(obj.timeStamps);
-  });
-
+// switch forecast buttons event listeners
 const buttons = document.querySelectorAll('.switch-forecast > button');
 buttons.forEach((button) => button.addEventListener('click', (e) => {
   const day = e.target.classList;
   renderDailyForecast(dailyForecast[day]);
 }));
+
+// search event listener
+const searchButton = document.querySelector('.search > button');
+searchButton.addEventListener('click', (e) => {
+  const input = document.querySelector('.search > input');
+  search(input.value);
+});
