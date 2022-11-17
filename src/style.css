@@ -86,5 +86,38 @@ button:hover{
   max-width: 100px;
   flex: 80px 1 0;
   height: 150px;
-  background-color: var(--shade)
+  background-color: var(--shade);
+
+  color: var(--bubbles);
+  padding: 4px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.time{
+  font-size: 1.1rem;
+}
+
+.main{
+  display: flex;
+}
+
+.icon{
+  width: 3rem;
+}
+
+.temperature{
+  font-size: 1.2rem;
+}
+
+.description{
+  font-size: .75rem;
+
+}
+
+.details{
+  font-size: .65rem;
 }
