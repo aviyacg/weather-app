@@ -50,7 +50,7 @@ function convertUnitsTimestamp(timeStamp) {
   // convert wind from meter/s to km/h
   convertedTimestamp.wind = Math.round(timeStamp.wind * 3.6);
   // convert precip from 0 to 1 float to 0-100 %
-  convertedTimestamp.preciption = timeStamp.preciption * 100;
+  convertedTimestamp.preciption = Math.round(timeStamp.preciption * 100);
 
   return convertedTimestamp;
 }

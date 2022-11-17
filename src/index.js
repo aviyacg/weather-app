@@ -69,10 +69,15 @@ function groupTimeStampsByDays(timeStamps) {
 }
 
 async function search(location) {
-  const json = await api.fetchForecastData(location);
-  const forecast = await api.processForecastData(json);
-  dailyForecast = groupTimeStampsByDays(forecast.timeStamps);
-  renderDailyForecast(dailyForecast.day1);
+  try {
+    const json = await api.fetchForecastData(location);
+    const forecast = await api.processForecastData(json);
+    dailyForecast = groupTimeStampsByDays(forecast.timeStamps);
+    renderDailyForecast(dailyForecast.day1);
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 // on load the page show the forecast for jerusalem
@@ -87,7 +92,7 @@ buttons.forEach((button) => button.addEventListener('click', (e) => {
 
 // search event listener
 const searchButton = document.querySelector('.search > button');
-searchButton.addEventListener('click', (e) => {
+searchButton.addEventListener('click', () => {
   const input = document.querySelector('.search > input');
   search(input.value);
 });
