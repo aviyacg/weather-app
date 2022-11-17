@@ -30,6 +30,9 @@ function filterTimestamp(timeStamp) {
     humidity: timeStamp.main.humidity,
     weather: timeStamp.weather[0].main,
     description: timeStamp.weather[0].description,
+    iconId: timeStamp.weather[0].icon,
+    wind: timeStamp.wind.speed,
+    preciption: timeStamp.pop,
   };
 }
 
@@ -43,7 +46,9 @@ function convertUnitsTimestamp(timeStamp) {
   // convert time from unix to Date object
   convertedTimestamp.date = new Date(timeStamp.date * 1000);
   // convert temperature from kelvin to celsius
-  convertedTimestamp.temperature = parseFloat((timeStamp.temperature - 273.15).toFixed(2));
+  convertedTimestamp.temperature = Math.round(timeStamp.temperature - 273.15);
+  // convert wind from meter/s to km/h
+  convertedTimestamp.wind = Math.round(timeStamp.wind * 3.6);
 
   return convertedTimestamp;
 }
