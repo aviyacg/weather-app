@@ -74,7 +74,7 @@ button:hover{
 
 .switch-forecast,
 .forecast{
-  width: clamp(300px, 90vw, 800px);
+  width: clamp(300px, 90vw, 1200px);
 
   display: flex;
   justify-content: space-around;
