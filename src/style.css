@@ -82,6 +82,10 @@ button:hover{
   gap: 8px;
 }
 
+.content > .forecast{
+  background-color: transparent;
+}
+
 .card{
   max-width: 100px;
   flex: 80px 1 0;
@@ -103,6 +107,7 @@ button:hover{
 
 .main{
   display: flex;
+  align-items: center;
 }
 
 .icon{
