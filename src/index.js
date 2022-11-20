@@ -91,6 +91,8 @@ async function search(location) {
     const forecast = api.processForecastData(forecastJson);
     dailyForecast = groupTimeStampsByDays(forecast.timeStamps);
     renderDailyForecast(dailyForecast.day1);
+    document.querySelector('input').placeholder = forecast.city;
+    document.querySelector('input').value = '';
     return true;
   } catch (error) {
     return false;
