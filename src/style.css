@@ -128,3 +128,17 @@ button:hover{
 .details{
   font-size: 1rem;
 }
+
+.current-weather{
+  display: grid;
+  grid-template: 1fr auto / 1fr 2fr;
+}
+
+.current-weather > div{
+  justify-self: center;
+  align-self: center;
+}
+
+.current-weather > .main{
+  grid-column: 1 / 3;
+}
