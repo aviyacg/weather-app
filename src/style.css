@@ -7,7 +7,8 @@
   --tangerine-yellow: #FFCD00;
 
 
-  --shade: rgba(255,255,255,.2)
+  --shade: rgba(255,255,255,.2);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body{
@@ -47,6 +48,7 @@ input{
   background-color: transparent;
   border: none;
   border-bottom: 1px solid var(--bubbles);
+  font-size: 1.4rem;
   color: var(--bubbles);
 }
 
@@ -64,6 +66,7 @@ button{
   background-color: transparent;
   border: none;
   color: var(--bubbles);
+  font-size: 1.4rem;
   padding: 4px 8px;
 }
 
@@ -87,9 +90,8 @@ button:hover{
 }
 
 .card{
-  max-width: 100px;
-  flex: 80px 1 0;
-  height: 150px;
+  flex: 120px 1 0;
+  height: 200px;
   background-color: var(--shade);
 
   color: var(--bubbles);
@@ -102,7 +104,7 @@ button:hover{
 }
 
 .time{
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 }
 
 .main{
@@ -111,18 +113,18 @@ button:hover{
 }
 
 .icon{
-  width: 3rem;
+  width: 4rem;
 }
 
 .temperature{
-  font-size: 1.2rem;
+  font-size: 1.7rem;
 }
 
 .description{
-  font-size: .75rem;
+  font-size: 1.3rem;
 
 }
 
 .details{
-  font-size: .65rem;
+  font-size: 1rem;
 }
