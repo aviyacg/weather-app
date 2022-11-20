@@ -75,6 +75,11 @@ button:hover{
   background-color: var(--shade);
 }
 
+.clicked{
+  justify-self: stretch;
+  border-bottom: 2px solid var(--bubbles);
+}
+
 .switch-forecast,
 .forecast{
   width: clamp(300px, 90vw, 1200px);
@@ -91,7 +96,7 @@ button:hover{
 
 .card{
   flex: 120px 1 0;
-  height: 200px;
+  min-height: 200px;
   background-color: var(--shade);
 
   color: var(--bubbles);

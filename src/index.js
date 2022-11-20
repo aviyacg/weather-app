@@ -41,6 +41,12 @@ function renderCurrentWeather(timeStamp) {
   updateCardData(timeStamp, currentWeatherCard);
 }
 
+function toggleButtons(button) {
+  const clickedButton = document.querySelector('.clicked');
+  if (clickedButton) { clickedButton.classList.remove('clicked'); }
+  button.classList.add('clicked');
+}
+
 /**
  * Render single day forecast
  * @param {Array} timeStamps an array of 8 timestamps
@@ -78,6 +84,19 @@ function groupTimeStampsByDays(timeStamps) {
   };
 }
 
+function updateInputPlaceholder(city) {
+  const input = document.querySelector('input');
+  input.placeholder = city;
+  input.value = '';
+}
+
+function updateButtonsText() {
+  const weekdays = ['Sunday', 'Monday', 'Tuseday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  document.querySelector('.day3').textContent = weekdays[dailyForecast.day3[0].date.getDay()];
+  document.querySelector('.day4').textContent = weekdays[dailyForecast.day4[0].date.getDay()];
+  document.querySelector('.day5').textContent = weekdays[dailyForecast.day5[0].date.getDay()];
+}
+
 async function search(location) {
   try {
     console.log(`searching: ${location}`);
@@ -90,9 +109,14 @@ async function search(location) {
     const forecastJson = await api.fetchForecastData(location);
     const forecast = api.processForecastData(forecastJson);
     dailyForecast = groupTimeStampsByDays(forecast.timeStamps);
+
+    // render today forecast
     renderDailyForecast(dailyForecast.day1);
-    document.querySelector('input').placeholder = forecast.city;
-    document.querySelector('input').value = '';
+    toggleButtons(document.querySelector('.day1'));
+    // update input and buttons
+    updateInputPlaceholder(forecast.city);
+    updateButtonsText();
+    //
     return true;
   } catch (error) {
     return false;
@@ -105,9 +129,12 @@ if (isError) { console.log('search error'); }
 
 // switch forecast buttons event listeners
 const buttons = document.querySelectorAll('.switch-forecast > button');
-buttons.forEach((button) => button.addEventListener('click', (e) => {
-  const day = e.target.classList;
+buttons.forEach((button) => button.addEventListener('click', () => {
+  // render data
+  const day = button.classList[0];
   renderDailyForecast(dailyForecast[day]);
+
+  toggleButtons(button);
 }));
 
 // search event listener
