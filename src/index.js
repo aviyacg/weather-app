@@ -31,6 +31,11 @@ function updateCardData(timeStamp, card) {
   PRECIP.textContent = `Chance of rain: ${timeStamp.preciption}%`;
 }
 
+function renderCurrentWeather(timeStamp) {
+  const currentWeatherCard = document.querySelector('.current-weather');
+  updateCardData(timeStamp, currentWeatherCard);
+}
+
 /**
  * Render single day forecast
  * @param {Array} timeStamps an array of 8 timestamps
@@ -70,8 +75,14 @@ function groupTimeStampsByDays(timeStamps) {
 
 async function search(location) {
   try {
-    const json = await api.fetchForecastData(location);
-    const forecast = await api.processForecastData(json);
+    // current weather
+    const weatherJson = await api.fetchWeatherData(location);
+    const weather = api.processWeatherData(weatherJson);
+    renderCurrentWeather(weather);
+
+    // 5 days forecast
+    const forecastJson = await api.fetchForecastData(location);
+    const forecast = await api.processForecastData(forecastJson);
     dailyForecast = groupTimeStampsByDays(forecast.timeStamps);
     renderDailyForecast(dailyForecast.day1);
     return true;
