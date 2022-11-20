@@ -11,7 +11,10 @@ let dailyForecast = {};
  */
 function updateCardData(timeStamp, card) {
   const TIME = card.querySelector('.time');
-  TIME.textContent = timeStamp.date.toTimeString().slice(0, 5);
+  if (TIME) {
+    TIME.textContent = timeStamp.date.toTimeString().slice(0, 5);
+  }
+
   const ICON = card.querySelector('.icon');
   ICON.src = `https://openweathermap.org/img/wn/${timeStamp.iconId}@2x.png`;
 
@@ -28,7 +31,9 @@ function updateCardData(timeStamp, card) {
   WIND.textContent = `Wind: ${timeStamp.wind}km/h`;
 
   const PRECIP = card.querySelector('.precip');
-  PRECIP.textContent = `Chance of rain: ${timeStamp.preciption}%`;
+  if (PRECIP) {
+    PRECIP.textContent = `Chance of rain: ${timeStamp.preciption}%`;
+  }
 }
 
 function renderCurrentWeather(timeStamp) {
@@ -75,6 +80,7 @@ function groupTimeStampsByDays(timeStamps) {
 
 async function search(location) {
   try {
+    console.log(`searching: ${location}`);
     // current weather
     const weatherJson = await api.fetchWeatherData(location);
     const weather = api.processWeatherData(weatherJson);
@@ -82,7 +88,7 @@ async function search(location) {
 
     // 5 days forecast
     const forecastJson = await api.fetchForecastData(location);
-    const forecast = await api.processForecastData(forecastJson);
+    const forecast = api.processForecastData(forecastJson);
     dailyForecast = groupTimeStampsByDays(forecast.timeStamps);
     renderDailyForecast(dailyForecast.day1);
     return true;
@@ -92,7 +98,8 @@ async function search(location) {
 }
 
 // on load the page show the forecast for jerusalem
-search('Jerusalem');
+const isError = !search('Jerusalem');
+if (isError) { console.log('search error'); }
 
 // switch forecast buttons event listeners
 const buttons = document.querySelectorAll('.switch-forecast > button');
